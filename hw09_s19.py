@@ -8,6 +8,8 @@
 
 import csv
 import os
+import matplotlib.pyplot as plt
+import numpy as np
 
 def generate_file_names(ftype, rootdir):
     '''
@@ -46,8 +48,32 @@ def read_csv_file(csv_file_path):
         return fd
 
 def plot_bee_traffic(csv_fp):
-    ## your code here
-    pass
+    bee_info_array = read_csv_file(csv_fp)
+    seconds = []
+    upward = []
+    downward = []
+    lateral = []
+    for sec,info in bee_info_array.items():
+        seconds.append(sec)
+        upward.append(info[0])
+        downward.append(info[1])
+        lateral.append(info[2])
+
+    fig1 = plt.figure(1)
+    fig1.suptitle('Bee Traffic for'+ csv_fp)
+    plt.xlabel('t(seconds)')
+    plt.ylabel('Moving Bees')
+    plt.ylim([0, 3.0])
+    plt.xlim([4.0, 29])
+    plt.grid()
+
+    plt.plot(seconds, upward, label='upward', c='r')
+    plt.plot(seconds, downward, label='downward', c='g')
+    plt.plot(seconds, lateral, label='lateral', c='b')
+
+    plt.legend(loc='best')
+    plt.show()
+
 
 def bee_traffic_estimate(t, md='u', fd={}):
     assert md == 'u' or md == 'd' or md == 'l'
