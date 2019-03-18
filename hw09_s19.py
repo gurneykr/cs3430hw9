@@ -74,6 +74,31 @@ def plot_bee_traffic(csv_fp):
     plt.legend(loc='best')
     plt.show()
 
+def midpoint_rule(fexpr, a, b, n):
+    area = 0
+    partition = (b - a)/ n
+
+    for i in np.arange(a, b, partition):
+        mid = i + (partition / 2)
+        area += fexpr(mid) * partition
+
+    return area
+
+def trapezoidal_rule(fexpr, a, b, n):
+    area = 0
+    partition = (b - a)/ n
+
+    for i in np.arange(a, b, partition):
+        area += partition * ((fexpr(i)+fexpr(i+partition))/2)
+
+    return area
+
+def sr_approx(fexpr, a, b, n):
+    #Simpson = (2M+T)/3
+    T = trapezoidal_rule(fexpr, a, b, n)
+    M = midpoint_rule(fexpr, a, b, n)
+
+    return (2*M + T)/3
 
 def bee_traffic_estimate(t, md='u', fd={}):
     assert md == 'u' or md == 'd' or md == 'l'
