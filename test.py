@@ -32,6 +32,10 @@ class Assign01UnitTests(unittest.TestCase):
 
     def test_04(self):
         print("****Unit Test 04********")
+        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-00-10.csv')
+        print("*****")
+        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-30-10.csv')
+        print("*****")
         test('bee_traffic_estimates\\192_168_4_5-2018-07-01_16-30-10.csv')
 
     if __name__ == "__main__":
