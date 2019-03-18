@@ -5,7 +5,7 @@
 # from deriv import deriv
 # from antideriv import antideriv, antiderivdef
 # from defintegralapprox import midpoint_rule, trapezoidal_rule, simpson_rule
-from hw09_s19 import display_csv_file, read_csv_file, plot_bee_traffic, sr_approx
+from hw09_s19 import display_csv_file, read_csv_file, plot_bee_traffic, sr_approx, test
 import unittest
 import numpy as np
 import math
@@ -25,13 +25,14 @@ class Assign01UnitTests(unittest.TestCase):
     #     plot_bee_traffic('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-00-10.csv')
     #     print("Unit Test 02: pass")
 
-    def test_03(self):
-        print("****Unit Test 03********")
-        print( sr_approx(lambda x: x**2, 0, 2, 10))
-        print(sr_approx(lambda x: x**3, 1, 5, 100))
-        # x = np.linspace(0,2,10)
-        # y = np.array([i**2 for i in x])
-        # print(integrate.simps(y,x))
+    # def test_03(self):
+    #     print("****Unit Test 03********")
+    #     print( sr_approx(lambda x: x**2, 0, 2, 10))
+    #     print(sr_approx(lambda x: x**3, 1, 5, 100))
+
+    def test_04(self):
+        print("****Unit Test 04********")
+        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_16-30-10.csv')
 
     if __name__ == "__main__":
         unittest.main()

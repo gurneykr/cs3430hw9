@@ -116,6 +116,14 @@ def make_bee_traffic_estimator(fd, md):
     assert md == 'u' or md == 'd' or md == 'l'
     return lambda t: bee_traffic_estimate(t, md=md, fd=fd)
 
+def test(csv_fp):
+    FD = read_csv_file(csv_fp)
+    up_bte = make_bee_traffic_estimator(FD, 'u')
+    down_bte = make_bee_traffic_estimator(FD, 'd')
+    lat_bte = make_bee_traffic_estimator(FD, 'l')
+    print(sr_approx(up_bte, 5, 28, 23))
+    print(sr_approx(down_bte, 5, 28, 23))
+    print(sr_approx(lat_bte, 5, 28, 23))
 
 import numpy as np
 def bee_traffic_stats(fd):
