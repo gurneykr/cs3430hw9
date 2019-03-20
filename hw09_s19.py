@@ -141,24 +141,19 @@ def sr_approx(fexpr, a, b, n):
     partition = (b - a)/n
     count = 0
     sum = 0
-    first = 0
-    last = 0
 
-    for i in np.arange(a, b, partition):
+    for i in np.arange(a, b+partition, partition):
+
         if count == 0:
-            # first = fexpr(a+(i*partition))
-            first = fexpr(a)
-            # print('first: ',first)
+            sum += fexpr(a)
         elif count == n:
-            last = fexpr(b)
-            # print('last: ',last)
-        elif count % 2== 0: #multiply evens by 2
-            # sum += 2*(fexpr(a+(i*partition)))
+            sum += fexpr(b)
+        elif count % 2 == 0: #multiply evens by 2
             sum += 2 * fexpr(i)
         else:#multiply odds by 4
             sum += 4*fexpr(i)
         count += 1
-    return (partition/3)*(first+sum+last)
+    return (1/3)*partition*sum
 
 
 
@@ -181,6 +176,7 @@ def make_bee_traffic_estimator(fd, md):
 def test(csv_fp):
     FD = read_csv_file(csv_fp)
     up_bte = make_bee_traffic_estimator(FD, 'u')
+    # print("up_bte: ",up_bte)
     down_bte = make_bee_traffic_estimator(FD, 'd')
     lat_bte = make_bee_traffic_estimator(FD, 'l')
     print(sr_approx(up_bte, 5, 28, 23))

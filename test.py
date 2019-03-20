@@ -28,15 +28,15 @@ class Assign01UnitTests(unittest.TestCase):
     def test_03(self):
         print("****Unit Test 03********")
         print( sr_approx(lambda x: x**2, 0, 2, 10))
-        # print(sr_approx(lambda x: x**3, 1, 5, 100))
+        print(sr_approx(lambda x: x**3, 1, 5, 100))
 
-    # def test_04(self):
-    #     print("****Unit Test 04********")
-    #     test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-00-10.csv')
-    #     print("*****")
-    #     test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-30-10.csv')
-    #     print("*****")
-    #     test('bee_traffic_estimates\\192_168_4_5-2018-07-01_16-30-10.csv')
+    def test_04(self):
+        print("****Unit Test 04********")
+        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-00-10.csv')
+        print("*****")
+        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-30-10.csv')
+        print("*****")
+        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_16-30-10.csv')
 
     if __name__ == "__main__":
         unittest.main()
