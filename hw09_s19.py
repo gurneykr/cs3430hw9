@@ -74,87 +74,21 @@ def plot_bee_traffic(csv_fp):
     plt.legend(loc='best')
     plt.show()
 
-def midpoint_rule(fexpr, a, b, n):
-    area = 0
-    partition = (b - a)/ n
 
-    for i in np.arange(a, b, partition):
-        mid = i + (partition / 2)
-        area += fexpr(mid) * partition
-
-    return area
-
-def trapezoidal_rule(fexpr, a, b, n):
-    area = 0
-    partition = (b - a)/ n
-
-    for i in np.arange(a, b, partition):
-        area += partition * ((fexpr(i)+fexpr(i+partition))/2)
-
-    return area
-
-# def sr_approx(fexpr, a, b, n):
-#     #Simpson = (2M+T)/3
-#     T = trapezoidal_rule(fexpr, a, b, n)
-#     M = midpoint_rule(fexpr, a, b, n)
-#
-#     return (2*M + T)/3
-
-# def sr_approx(fexpr, a, b, n):
-#     h = (b - a)/n
-#     k = 0.0
-#     x = a + h
-#     for i in np.arange(1, (n/2) +1):
-#         k += 4*fexpr(x)
-#         x += 2*h
-#
-#     x = a + 2*h
-#     for i in np.arange(1, n/2):
-#         k += 2*fexpr(x)
-#         x += 2*h
-#
-#     return (h/3)*(fexpr(a)+fexpr(b)+k)
-# def sr_approx(f, a, b, n):
-#     h=(b-a)/n
-#     k=0.0
-#     x=a + h
-#     for i in np.arange(1,n/2 + 1):
-#         k += 4*f(x)
-#         x += 2*h
-#
-#     x = a + 2*h
-#     for i in np.arange(1,n/2):
-#         k += 2*f(x)
-#         x += 2*h
-#     return (h/3)*(f(a)+f(b)+k)
-
-# def sr_approx(f, a, b, n):
-#     partition = (b - a)/n
-#     sum = 0
-#     for i in range(1, n, 2):
-#         sum += 4 * f(a + i * partition)
-#     for i in range(2, n - 1, 2):
-#         sum += 2 * f(a + i * partition)
-#
-#     return sum * partition / 3
 def sr_approx(fexpr, a, b, n):
     partition = (b - a)/n
     count = 0
     sum = 0
-
     for i in np.arange(a, b+partition, partition):
 
-        if count == 0:
-            sum += fexpr(a)
-        elif count == n:
-            sum += fexpr(b)
-        elif count % 2 == 0: #multiply evens by 2
+        if count == 0 or count == n:
+            sum += fexpr(i)
+        elif count % 2 == 0: # multiply evens by 2
             sum += 2 * fexpr(i)
-        else:#multiply odds by 4
+        else:               # multiply odds by 4
             sum += 4*fexpr(i)
         count += 1
     return (1/3)*partition*sum
-
 
 
 def bee_traffic_estimate(t, md='u', fd={}):
