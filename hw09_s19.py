@@ -93,26 +93,30 @@ def trapezoidal_rule(fexpr, a, b, n):
 
     return area
 
-def sr_approx(fexpr, a, b, n):
-    #Simpson = (2M+T)/3
-    T = trapezoidal_rule(fexpr, a, b, n)
-    M = midpoint_rule(fexpr, a, b, n)
-
-    return (2*M + T)/3
 # def sr_approx(fexpr, a, b, n):
-#     partition = (b - a)/n
-#     count = 0
-#     sum = 0
-#     for i in np.arange(a, b+partition, partition):
+#     #Simpson = (2M+T)/3
+#     T = trapezoidal_rule(fexpr, a, b, n)
+#     M = midpoint_rule(fexpr, a, b, n)
 #
-#         if count == 0 or count == n:
-#             sum += fexpr(i)
-#         elif count % 2 == 0: # multiply evens by 2
-#             sum += 2 * fexpr(i)
-#         else:               # multiply odds by 4
-#             sum += 4*fexpr(i)
-#         count += 1
-#     return (1/3)*partition*sum
+#     return (2*M + T)/3
+
+def sr_approx(fexpr, a, b, n):
+    partition = (b - a)/n
+    count = 0
+    sum = 0
+    #for x^2, [0,2] n = 10
+    #a                                         b
+    #0, .2, .4, .6, .8, 1, 1.2, 1.4, 1.6, 1.8, 2
+    for i in np.arange(a, b+partition, partition):
+        # x = a+(i*partition)
+        if count == 0 or count == n:
+            sum += fexpr(i)
+        elif count % 2 == 0: # multiply evens by 2
+            sum += 2 * fexpr(i)
+        else:               # multiply odds by 4
+            sum += 4*fexpr(i)
+        count += 1
+    return (1/3)*partition*sum
 
 
 def bee_traffic_estimate(t, md='u', fd={}):
