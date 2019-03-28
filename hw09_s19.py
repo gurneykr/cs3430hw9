@@ -249,13 +249,42 @@ def test_min_up(csv_dir):
 ###########################
 
 def find_max_down_file(csv_dir):
-    ## your code here
-    pass
+    path = csv_dir + "/*.csv"
+    current_down = 0
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+
+        if stats[1] > current_down:
+            current_down = stats[1]
+            info = (file, *stats)
+
+    return info
+
+def test_max_down(csv_dir):
+    fp, u, d, l = find_max_down_file(csv_dir)
+    print(fp, u, d, l)
+    plot_bee_traffic(fp)
 
 def find_min_down_file(csv_dir):
-    ## your code here
-    pass
+    path = csv_dir + "/*.csv"
+    current_down = 10000000
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
 
+        if stats[1] < current_down:
+            current_down = stats[1]
+            info = (file, *stats)
+
+    return info
+
+def test_min_down(csv_dir):
+    fp, u, d, l = find_min_down_file(csv_dir)
+    print(fp, u, d, l)
+    plot_bee_traffic(fp)
 ############################
 
 def find_max_lat_file(csv_dir):
