@@ -5,7 +5,8 @@
 # from deriv import deriv
 # from antideriv import antideriv, antiderivdef
 # from defintegralapprox import midpoint_rule, trapezoidal_rule, simpson_rule
-from hw09_s19 import display_csv_file, read_csv_file, plot_bee_traffic, sr_approx, test
+from hw09_s19 import display_csv_file, read_csv_file, plot_bee_traffic, sr_approx, test, bee_traffic_stats, find_smallest_up_down_gap_file, find_largest_up_down_gap_file
+from hw09_s19 import find_max_up_file, find_max_lat_file, find_max_down_file
 import unittest
 import numpy as np
 import math
@@ -33,13 +34,26 @@ class Assign01UnitTests(unittest.TestCase):
         # print(trapezoidal_rule(lambda x: x ** 3, 0, 2, 10))
 
     #     # print(midpoint_rule(lambda x: x ** 3, 0, 2, 10))
-    def test_04(self):
-        print("****Unit Test 04********")
-        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-00-10.csv')
-        print("*****")
-        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-30-10.csv')
-        print("*****")
-        test('bee_traffic_estimates\\192_168_4_5-2018-07-01_16-30-10.csv')
+    # def test_04(self):
+    #     print("****Unit Test 04********")
+    #     test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-00-10.csv')
+    #     print("*****")
+    #     test('bee_traffic_estimates\\192_168_4_5-2018-07-01_08-30-10.csv')
+    #     print("*****")
+    #     test('bee_traffic_estimates\\192_168_4_5-2018-07-01_16-30-10.csv')
+    #
+    # def test_05(self):
+    #     print("****Unit Test 05********")
+    #     # fd = read_csv_file('bee_traffic_estimates\\192_168_4_5-2018-07-02_16-30-10.csv')
+    #     # fd = read_csv_file('bee_traffic_estimates\\192_168_4_5-2018-07-02_14-00-10.csv')
+    #     fd = read_csv_file('bee_traffic_estimates\\192_168_4_5-2018-07-02_18-00-10.csv')
+    #     print(bee_traffic_stats(fd))
+
+    def test_06(self):
+        print("****Unit Test 06********")
+        # print(find_smallest_up_down_gap_file('bee_traffic_estimates'))
+        # print(find_largest_up_down_gap_file('bee_traffic_estimates'))
+        print(find_max_up_file('bee_traffic_estimates'))
 
     if __name__ == "__main__":
         unittest.main()

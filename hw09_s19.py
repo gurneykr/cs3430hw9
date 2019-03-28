@@ -10,6 +10,7 @@ import csv
 import os
 import matplotlib.pyplot as plt
 import numpy as np
+import glob
 
 def generate_file_names(ftype, rootdir):
     '''
@@ -147,22 +148,63 @@ def test(csv_fp):
 
 import numpy as np
 def bee_traffic_stats(fd):
-    ## your code here
-    pass
+    up_bte = make_bee_traffic_estimator(fd, 'u')
+    # print("up_bte: ",up_bte)
+    down_bte = make_bee_traffic_estimator(fd, 'd')
+    lat_bte = make_bee_traffic_estimator(fd, 'l')
+    up = sr_approx(up_bte, 5, 28, 23)
+    down = sr_approx(down_bte, 5, 28, 23)
+    lat = sr_approx(lat_bte, 5, 28, 23)
+
+    return (up, down, lat)
 
 def find_smallest_up_down_gap_file(csv_dir):
-    ## your code here
-    pass
+    #loop through files in the directory
+    path = csv_dir+"/*.csv"
+    current_gap = 1000000000
+    info = ()
+    for file in glob.glob(path):
+        # print(file)
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+        gap = abs(stats[0] - stats[1])#estimate gap between the upward and downward bee traffic estimates
+        if gap < current_gap:
+            current_gap = gap
+            info = (file, *stats, gap)
+
+    return info
 
 def find_largest_up_down_gap_file(csv_dir):
-    ## your code here
-    pass
+    #loop through files in the directory
+    path = csv_dir+"/*.csv"
+    current_gap = 0
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+        gap = abs(stats[0] - stats[1])#estimate gap between the upward and downward bee traffic estimates
+        if gap > current_gap:
+            current_gap = gap
+            info = (file, *stats, gap)
+
+    return info
 
 ############################
 
 def find_max_up_file(csv_dir):
-    ## your code here
-    pass
+    # loop through files in the directory
+    path = csv_dir + "/*.csv"
+    current_up = 0
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+
+        if stats[0] > current_up:
+            current_up = stats[0]
+            info = (file, *stats)
+
+    return info
 
 def find_min_up_file(csv_dir):
     ## your code here
