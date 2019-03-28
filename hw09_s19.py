@@ -55,7 +55,7 @@ def plot_bee_traffic(csv_fp):
     downward = []
     lateral = []
     max_val = 0
-    for sec,info in bee_info_array.items():
+    for sec, info in bee_info_array.items():
         seconds.append(sec)
         upward.append(info[0])
         downward.append(info[1])
@@ -82,39 +82,11 @@ def plot_bee_traffic(csv_fp):
     plt.legend(loc='best')
     plt.show()
 
-def midpoint_rule(fexpr, a, b, n):
-    area = 0
-    partition = (b - a)/ n
-
-    for i in np.arange(a, b, partition):
-        mid = i + (partition / 2)
-        area += fexpr(mid) * partition
-
-    return area
-
-def trapezoidal_rule(fexpr, a, b, n):
-    area = 0
-    partition = (b - a)/ n
-
-    for i in np.arange(a, b, partition):
-        area += partition * ((fexpr(i)+fexpr(i+partition))/2)
-
-    return area
-
-# def sr_approx(fexpr, a, b, n):
-#     #Simpson = (2M+T)/3
-#     T = trapezoidal_rule(fexpr, a, b, n)
-#     M = midpoint_rule(fexpr, a, b, n)
-#
-#     return (2*M + T)/3
-
 def sr_approx(fexpr, a, b, n):
     partition = (b - a)/n
     count = 0
     sum = 0
-    #for x^2, [0,2] n = 10
-    #a                                         b
-    #0, .2, .4, .6, .8, 1, 1.2, 1.4, 1.6, 1.8, 2
+
     for i in np.arange(a, b+partition, partition):
         # x = a+(i*partition)
         if count == 0 or count == n:
@@ -171,7 +143,6 @@ def test_smallest_up_down_gap(csv_dir):
     plot_bee_traffic(fp)
 
 def find_smallest_up_down_gap_file(csv_dir):
-    #loop through files in the directory
     path = csv_dir+"/*.csv"
     current_gap = 1000000000
     info = ()
@@ -179,7 +150,7 @@ def find_smallest_up_down_gap_file(csv_dir):
         # print(file)
         fd = read_csv_file(file)
         stats = bee_traffic_stats(fd)
-        gap = abs(stats[0] - stats[1])#estimate gap between the upward and downward bee traffic estimates
+        gap = abs(stats[0] - stats[1])#estimate gap
         if gap < current_gap:
             current_gap = gap
             info = (file, *stats, gap)
@@ -192,14 +163,13 @@ def test_largest_up_down_gap(csv_dir):
     plot_bee_traffic(fp)
 
 def find_largest_up_down_gap_file(csv_dir):
-    #loop through files in the directory
     path = csv_dir+"/*.csv"
     current_gap = 0
     info = ()
     for file in glob.glob(path):
         fd = read_csv_file(file)
         stats = bee_traffic_stats(fd)
-        gap = abs(stats[0] - stats[1])#estimate gap between the upward and downward bee traffic estimates
+        gap = abs(stats[0] - stats[1])#estimate gap
         if gap > current_gap:
             current_gap = gap
             info = (file, *stats, gap)
@@ -209,7 +179,6 @@ def find_largest_up_down_gap_file(csv_dir):
 ############################
 
 def find_max_up_file(csv_dir):
-    # loop through files in the directory
     path = csv_dir + "/*.csv"
     current_up = 0
     info = ()
@@ -288,9 +257,39 @@ def test_min_down(csv_dir):
 ############################
 
 def find_max_lat_file(csv_dir):
-    ## your code here
-    pass
+    path = csv_dir + "/*.csv"
+    current_lat = 0
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+
+        if stats[2] > current_lat:
+            current_lat = stats[2]
+            info = (file, *stats)
+
+    return info
+
+def test_max_lat(csv_dir):
+    fp, u, d, l = find_max_lat_file(csv_dir)
+    print(fp, u, d, l)
+    plot_bee_traffic(fp)
 
 def find_min_lat_file(csv_dir):
-    ## your code here
-    pass
+    path = csv_dir + "/*.csv"
+    current_lat = 10000000
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+
+        if stats[2] < current_lat:
+            current_lat = stats[2]
+            info = (file, *stats)
+
+    return info
+
+def test_min_lat(csv_dir):
+    fp, u, d, l = find_min_lat_file(csv_dir)
+    print(fp, u, d, l)
+    plot_bee_traffic(fp)

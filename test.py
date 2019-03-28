@@ -6,11 +6,11 @@
 # from antideriv import antideriv, antiderivdef
 # from defintegralapprox import midpoint_rule, trapezoidal_rule, simpson_rule
 from hw09_s19 import display_csv_file, read_csv_file, plot_bee_traffic, sr_approx, test, bee_traffic_stats, find_smallest_up_down_gap_file, find_largest_up_down_gap_file
-from hw09_s19 import find_max_up_file, find_max_lat_file, find_max_down_file, test_max_up, test_smallest_up_down_gap, test_largest_up_down_gap, test_min_up, test_max_down, test_min_down
+from hw09_s19 import find_max_up_file, find_max_lat_file, find_max_down_file, test_max_up, test_smallest_up_down_gap, test_largest_up_down_gap, test_min_up, test_max_down, test_min_down, test_max_lat, test_min_lat
 import unittest
 import numpy as np
 import math
-from hw09_s19 import midpoint_rule, trapezoidal_rule
+
 
 class Assign01UnitTests(unittest.TestCase):
 
@@ -49,8 +49,8 @@ class Assign01UnitTests(unittest.TestCase):
     #     fd = read_csv_file('bee_traffic_estimates\\192_168_4_5-2018-07-02_18-00-10.csv')
     #     print(bee_traffic_stats(fd))
 
-    def test_06(self):
-        print("****Unit Test 06********")
+    # def test_06(self):
+    #     print("****Unit Test 06********")
         # print(find_smallest_up_down_gap_file('bee_traffic_estimates'))
         # print(find_largest_up_down_gap_file('bee_traffic_estimates'))
         # print(find_max_up_file('bee_traffic_estimates'))
@@ -60,7 +60,10 @@ class Assign01UnitTests(unittest.TestCase):
         # test_largest_up_down_gap('bee_traffic_estimates')
         # test_min_up('bee_traffic_estimates')
         # test_max_down('bee_traffic_estimates')
-        test_min_down('bee_traffic_estimates')
+        # test_min_down('bee_traffic_estimates')
+
+        # test_max_lat('bee_traffic_estimates')
+        # test_min_lat('bee_traffic_estimates')
 
     if __name__ == "__main__":
         unittest.main()
