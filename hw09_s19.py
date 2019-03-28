@@ -54,18 +54,25 @@ def plot_bee_traffic(csv_fp):
     upward = []
     downward = []
     lateral = []
+    max_val = 0
     for sec,info in bee_info_array.items():
         seconds.append(sec)
         upward.append(info[0])
         downward.append(info[1])
         lateral.append(info[2])
+        if info[0] > max_val:
+            max_val = info[0]
+        if info[1] > max_val:
+            max_val = info[1]
+        if info[2] > max_val:
+            max_val = info[2]
 
     fig1 = plt.figure(1)
     fig1.suptitle('Bee Traffic for'+ csv_fp)
     plt.xlabel('t(seconds)')
     plt.ylabel('Moving Bees')
-    plt.ylim([0, 3.0])
-    plt.xlim([4.0, 29])
+    plt.ylim([0, max_val])
+    plt.xlim([2, 30])
     plt.grid()
 
     plt.plot(seconds, upward, label='upward', c='r')
@@ -158,6 +165,11 @@ def bee_traffic_stats(fd):
 
     return (up, down, lat)
 
+def test_smallest_up_down_gap(csv_dir):
+    fp, u, d, l, gap = find_smallest_up_down_gap_file(csv_dir)
+    print(fp, u, d, l, gap)
+    plot_bee_traffic(fp)
+
 def find_smallest_up_down_gap_file(csv_dir):
     #loop through files in the directory
     path = csv_dir+"/*.csv"
@@ -173,6 +185,11 @@ def find_smallest_up_down_gap_file(csv_dir):
             info = (file, *stats, gap)
 
     return info
+
+def test_largest_up_down_gap(csv_dir):
+    fp, u, d, l, gap = find_largest_up_down_gap_file(csv_dir)
+    print(fp, u, d, l, gap)
+    plot_bee_traffic(fp)
 
 def find_largest_up_down_gap_file(csv_dir):
     #loop through files in the directory
@@ -206,10 +223,29 @@ def find_max_up_file(csv_dir):
 
     return info
 
-def find_min_up_file(csv_dir):
-    ## your code here
-    pass
+def test_max_up(csv_dir):
+    fp, u, d, l = find_max_up_file(csv_dir)
+    print(fp, u, d, l)
+    plot_bee_traffic(fp)
 
+def find_min_up_file(csv_dir):
+    path = csv_dir + "/*.csv"
+    current_up = 10000000
+    info = ()
+    for file in glob.glob(path):
+        fd = read_csv_file(file)
+        stats = bee_traffic_stats(fd)
+
+        if stats[0] < current_up:
+            current_up = stats[0]
+            info = (file, *stats)
+
+    return info
+
+def test_min_up(csv_dir):
+    fp, u, d, l = find_min_up_file(csv_dir)
+    print(fp, u, d, l)
+    plot_bee_traffic(fp)
 ###########################
 
 def find_max_down_file(csv_dir):

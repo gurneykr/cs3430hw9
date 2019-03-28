@@ -6,7 +6,7 @@
 # from antideriv import antideriv, antiderivdef
 # from defintegralapprox import midpoint_rule, trapezoidal_rule, simpson_rule
 from hw09_s19 import display_csv_file, read_csv_file, plot_bee_traffic, sr_approx, test, bee_traffic_stats, find_smallest_up_down_gap_file, find_largest_up_down_gap_file
-from hw09_s19 import find_max_up_file, find_max_lat_file, find_max_down_file
+from hw09_s19 import find_max_up_file, find_max_lat_file, find_max_down_file, test_max_up, test_smallest_up_down_gap, test_largest_up_down_gap, test_min_up
 import unittest
 import numpy as np
 import math
@@ -53,7 +53,12 @@ class Assign01UnitTests(unittest.TestCase):
         print("****Unit Test 06********")
         # print(find_smallest_up_down_gap_file('bee_traffic_estimates'))
         # print(find_largest_up_down_gap_file('bee_traffic_estimates'))
-        print(find_max_up_file('bee_traffic_estimates'))
+        # print(find_max_up_file('bee_traffic_estimates'))
+        # test_max_up('bee_traffic_estimates')
+        # test_smallest_up_down_gap('bee_traffic_estimates')
+
+        # test_largest_up_down_gap('bee_traffic_estimates')
+        test_min_up('bee_traffic_estimates')
 
     if __name__ == "__main__":
         unittest.main()
